@@ -19,18 +19,14 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={
+        <Route path="/" element={
             <PrivateRoute>
               <HomePage />
             </PrivateRoute>
-          }
-        />
+          }/>
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
-      <Footer />
     </div>
   );
 }
