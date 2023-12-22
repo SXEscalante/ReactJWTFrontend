@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+
+
+import Dropdown from "../Dropdown/Dropdown";
+
 import "./NavBar.css";
 
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
   let navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [username, token] = useAuth();
 
   const handleSubmit = (e) => {
     setSearch('');
@@ -34,7 +40,7 @@ const Navbar = () => {
         </form>
         <li>
           {user ? (
-            <button onClick={logoutUser}>Logout</button>
+            <Dropdown />
           ) : (
             <button onClick={() => navigate("/login")}>Login</button>
           )}

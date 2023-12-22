@@ -1,0 +1,12 @@
+.book-info{
+    display: flex;
+    justify-content: space-between;
+}
+.book-info img{
+    height: 500px;
+
+}
+.info{
+    width: 60%;
+    margin-left: 3%;
+}

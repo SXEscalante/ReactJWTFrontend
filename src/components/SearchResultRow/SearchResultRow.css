@@ -1,0 +1,12 @@
+.result-container{
+    display: flex;
+    margin: 1% 8%;
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+.text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 3%;
+}
