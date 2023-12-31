@@ -11,7 +11,7 @@ const BookDetailsPage = ({}) => {
     const [book, setBook] = useState('');
     const [loading, setLoading] = useState(true);
     const [notLoggedIn, setNotLoggedIn] = useState(false);
-    const [user] = useAuth();
+    const [user, token] = useAuth();
     console.log(useParams())
 
     const handleSearch = async () => {
@@ -41,11 +41,16 @@ const BookDetailsPage = ({}) => {
     const handleFavorite = async () => {
       const favData = {
         bookId: bookId,
-        title: book.volumeInfo.title
+        title: book.volumeInfo.title,
+        thumbnailUrl: book.volumeInfo.imageLinks.thumbnail
       }
 
       try{
-        await axios.post(`https://localhost:5001/api/favorites`, favData)
+        await axios.post(`https://localhost:5001/api/favorites`, favData, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        })
       } catch (error){
         console.log("Error favoriting book:", error)
       }

@@ -34,13 +34,13 @@ const Navbar = () => {
             <b>BookNook</b>
           </Link>
         </li>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="search-bar-wrapper">
           <input className="search-bar" placeholder="Search" type="text" value={search} onChange={(e) => setSearch(e.target.value)}/>
           <button type="submit"></button>
         </form>
         <li>
           {user ? (
-            <Dropdown />
+            <Dropdown username={username}/>
           ) : (
             <button onClick={() => navigate("/login")}>Login</button>
           )}
