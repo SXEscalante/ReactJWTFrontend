@@ -1,12 +1,31 @@
 .book-info{
+    margin: 5%;
     display: flex;
     justify-content: space-between;
 }
 .book-info img{
-    height: 500px;
-
+    height: 520px;
+    border: 1px solid rgb(182, 182, 182);
+    padding: 20px;
 }
 .info{
     width: 60%;
-    margin-left: 3%;
+    border: 1px solid rgb(182, 182, 182);
+    padding: 10px;
+}
+.genres{
+    padding: 20px 0px;
+}
+.favorite{
+    background-image: url(/public/NotFavorited.png);
+    border: none;
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.favorite:hover{
+    background-image: url(/public/NotFavoritedHover.png);
+    background-color: white;
 }
