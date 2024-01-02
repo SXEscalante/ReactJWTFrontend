@@ -9,7 +9,7 @@ const FavoritesPage = ({}) => {
     const [user, token] = useAuth();
     const [favoriteBooks, setFavoriteBooks] = useState([]);
 
-    const getFavorites = async () => {
+    const handleFavorites = async () => {
         try{
             const responce = await axios.get(`https://localhost:5001/api/favorites/myFavorites`, {
                 headers: {
@@ -18,15 +18,30 @@ const FavoritesPage = ({}) => {
             })
             if (responce.status === 200){
                 console.log(responce.data)
-                setFavoriteBooks(responce.data.map((book, i) => <FavoriteDisplay key={i} book={book}/>))
+                setFavoriteBooks(responce.data.map((book, i) => <FavoriteDisplay key={i} book={book} deleteFavorite={handleDeleteFavorite}/>))
             }
         } catch (error){
             console.log("Error getting favorite books:", error)
           }
     }
 
+    const handleDeleteFavorite = async (id) => {
+        try {
+            const responce = await axios.delete(`https://localhost:5001/api/favorites/${id}`, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            })
+            if (responce.status === 204) {
+                handleFavorites();
+            }
+        } catch (error) {
+            console.log("Error deleting favorite:", error)
+        }
+    }
+
     useEffect(() => {
-        getFavorites();
+        handleFavorites();
       }, [])
 
     return ( 
