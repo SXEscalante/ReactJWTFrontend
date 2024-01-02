@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 
 import './BookDetailsPage.css'
 import NewReviewModal from "../../components/NewReviewModal/NewReviewModal";
+import Review from "../../components/Review/Review";
 
 const BookDetailsPage = ({}) => {
     const { bookId } = useParams();
@@ -15,6 +16,7 @@ const BookDetailsPage = ({}) => {
     const [notLoggedIn, setNotLoggedIn] = useState(false);
     const [user, token] = useAuth();
     const [openModal, setOpenModal] = useState(false);
+    const [reviews, setReviews] = useState([]);
 
 
     const handleSearch = async () => {
@@ -43,15 +45,6 @@ const BookDetailsPage = ({}) => {
       }
     }
 
-    const detectUser = () => {
-      if(user){
-        handleFavorite()
-      }
-      else {
-        setNotLoggedIn(true);
-      }
-    }
-
     const handleFavorite = async () => {
       const favData = {
         bookId: bookId,
@@ -70,10 +63,38 @@ const BookDetailsPage = ({}) => {
       }
     }
 
+    const detectUser = () => {
+      if(user){
+        handleFavorite()
+      }
+      else {
+        setNotLoggedIn(true);
+      }
+    }
+
+    const canOpenModal = () => {
+      if(user){
+        setOpenModal(true)
+      }
+      else {
+        setNotLoggedIn(true);
+      }
+    }
+
     useEffect(() => {
       handleSearch();
       handleComments();
     }, [])
+
+    useEffect(() => {
+      handleComments();
+    }, [openModal])
+
+    useEffect(() => {
+      if(bookDetails || bookDetails != ''){
+        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user}/>))
+      }
+    }, [bookDetails]);
 
 
     if(loading) {
@@ -99,9 +120,12 @@ const BookDetailsPage = ({}) => {
         </div>
         <div className="comment-section">
             <h3>Comments</h3>
-            <button onClick={() => setOpenModal(true)}>Write your own review</button>
+            <div>
+              {reviews}
+            </div>
+            <button onClick={canOpenModal}>Write your own review</button>
         </div>
-        <NewReviewModal modalState={openModal} setModalState={setOpenModal}/>
+        <NewReviewModal modalState={openModal} setModalState={setOpenModal} bookId={bookId} />
       </div>
     );
 }
