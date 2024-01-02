@@ -1,21 +1,25 @@
 import './Review.css'
 
-const Review = ({review, user}) => {
+const Review = ({review, user, deleteReview}) => {
     let currentUser = false
+    console.log(review)
 
-    if (user.id === review.userId){
-        currentUser = true;
-    }
+    if (user){
+        if (user.id === review.userId){
+            currentUser = true;
+    }}
 
     return ( 
         <div className='review'>
             <div className="review-header">
                 <h3 className='username'>{review.username}</h3>
-                {currentUser && <div>
-                    <button>X</button>
-                    <button>E</button>
-                    <p>Rated: {review.rating}</p>
-                </div>}
+                <div className='buttons-rating'>
+                    {currentUser && <div>
+                        <button className='delete' onClick={() => deleteReview(review.id)}>X</button>
+                        <button>E</button>
+                    </div>}
+                    <p className='rating-value'>Rated: {review.rating}</p>
+                </div>
             </div>
             <p className='body'>{review.text}</p>
             <br />

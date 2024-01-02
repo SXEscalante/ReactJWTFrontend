@@ -6,8 +6,8 @@ const Dropdown = ({ logoutUser, username }) => {
         <div className='dropdown'>
             <button>{`Welcome ${username.userName}`}</button>
             <div className="content">
-                <a href="/favorites">Favorite</a>
-                <a href="">Logout</a>
+                <a className='menu-option favorites' href="/favorites">Favorite</a>
+                <p className='menu-option logout' onClick={logoutUser}>Logout</p>
             </div>
         </div>
     );

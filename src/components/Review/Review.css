@@ -4,6 +4,22 @@
 .review-header{
     display: flex;
     justify-content: space-between;
+  }
+  .review-header button{
+    border: none;
+    padding: 3px 5px;
+  }
+  .buttons-rating{
+    display: flex;
+  }
+  .rating-value{
+
+  }
+  .delete{
+    color: red;
+  }
+  .delete:hover{
+    background-color: darkred;
 }
 .body{
     padding-top: 5px;

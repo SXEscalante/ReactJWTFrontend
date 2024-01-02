@@ -15,7 +15,18 @@
     padding: 5px;
     margin-top: 1px;
 }
-
 .dropdown:hover .content{
     display: flex;
+}
+
+.favorites{
+    text-decoration: none;
+    color: black;
+}
+.menu-option:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+.logout{
+    color: black;
 }

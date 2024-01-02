@@ -40,7 +40,7 @@ const Navbar = () => {
         </form>
         <li>
           {user ? (
-            <Dropdown username={username}/>
+            <Dropdown username={username} logoutUser={logoutUser}/>
           ) : (
             <button onClick={() => navigate("/login")}>Login</button>
           )}

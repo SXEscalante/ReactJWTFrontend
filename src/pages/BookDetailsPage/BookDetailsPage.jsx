@@ -33,15 +33,29 @@ const BookDetailsPage = ({}) => {
       }
     }
 
-    const handleComments = async () => {
+    const handleReviews = async () => {
         try {
           const responce = await axios.get(`https://localhost:5001/api/bookDetails/${bookId}`)
           if(responce.status === 200){
             setBookDetails(responce.data)
-            console.log("Details", responce.data)
           }
       } catch (error) {
         console.log("Error searching API for bookId:", error)
+      }
+    }
+
+    const handleDeleteReview = async (reviewId) => {
+      try {
+        const responce = await axios.delete(`https://localhost:5001/api/reviews/${reviewId}`, {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        })
+        if (responce.status === 204){
+          handleReviews();
+        }
+      } catch (error) {
+        console.log("Error deleting review:", error)
       }
     }
 
@@ -83,16 +97,16 @@ const BookDetailsPage = ({}) => {
 
     useEffect(() => {
       handleSearch();
-      handleComments();
+      handleReviews();
     }, [])
 
     useEffect(() => {
-      handleComments();
+      handleReviews();
     }, [openModal])
 
     useEffect(() => {
       if(bookDetails || bookDetails != ''){
-        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user}/>))
+        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user} deleteReview={handleDeleteReview}/>))
       }
     }, [bookDetails]);
 
@@ -125,7 +139,7 @@ const BookDetailsPage = ({}) => {
             </div>
             <button onClick={canOpenModal}>Write your own review</button>
         </div>
-        <NewReviewModal modalState={openModal} setModalState={setOpenModal} bookId={bookId} />
+        <NewReviewModal modalState={openModal} setModalState={setOpenModal} bookId={bookId}  />
       </div>
     );
 }
