@@ -1,0 +1,22 @@
+.favorite-display{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid gray;
+    width: 30vw;
+    padding: 1em;
+    gap: 5px;
+}
+.favorite-display img{
+    height: 350px;
+}
+.delete-favorite{
+    display: flex;
+    align-self: end;
+    border: none;
+    color: red;
+    padding: 0 5px;
+}
+.delete-favorite:hover{
+    background-color: darkred;
+}

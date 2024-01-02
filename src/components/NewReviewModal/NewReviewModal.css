@@ -1,0 +1,38 @@
+.overlay{
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.3);
+   z-index: 3;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid darkgray;
+    width: 45vw;
+    padding: 3rem;
+    background-color: white;
+  }
+  .message-container{
+    display: flex;
+    flex-direction: column;   
+  }
+  .rating-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .rating{
+    width: 50px;
+  }
+  .exit{
+    display: flex;
+    align-self: end;
+    border: none;
+    color: black;
+    padding: 0 5px;
+  }

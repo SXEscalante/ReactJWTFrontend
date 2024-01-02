@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import FavoriteDisplay from "../../components/FavoriteDisplay/FavoriteDisplay";
+
+import "./FavoritesPage.css"
 
 const FavoritesPage = ({}) => {
     const [user, token] = useAuth();
-    const [favoriteBooks, setFavoriteBooks] = useState({});
+    const [favoriteBooks, setFavoriteBooks] = useState([]);
 
     const getFavorites = async () => {
         try{
@@ -15,7 +18,7 @@ const FavoritesPage = ({}) => {
             })
             if (responce.status === 200){
                 console.log(responce.data)
-                setFavoriteBooks(responce)
+                setFavoriteBooks(responce.data.map((book, i) => <FavoriteDisplay key={i} book={book}/>))
             }
         } catch (error){
             console.log("Error getting favorite books:", error)
@@ -29,8 +32,8 @@ const FavoritesPage = ({}) => {
     return ( 
         <div>
             <h1>{user.userName}'s Favorites</h1>
-            <div>
-
+            <div className="favorites-container">
+                {favoriteBooks}
             </div>
         </div>
     );
