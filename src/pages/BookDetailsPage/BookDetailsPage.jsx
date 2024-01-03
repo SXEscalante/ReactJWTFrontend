@@ -17,6 +17,7 @@ const BookDetailsPage = ({}) => {
     const [user, token] = useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [reviews, setReviews] = useState([]);
+    const [isFavorited, setIsFavorited] = useState('');
     console.log("book",bookDetails)
 
     const handleSearch = async () => {
@@ -71,13 +72,12 @@ const BookDetailsPage = ({}) => {
         title: book.volumeInfo.title,
         thumbnailUrl: book.volumeInfo.imageLinks.thumbnail
       }
-
       try{
-        await axios.post(`https://localhost:5001/api/favorites/${bookId}`, favData, {
+        const responce = await axios.post(`https://localhost:5001/api/favorites/${bookId}`, favData, {
           headers: {
             Authorization: "Bearer " + token
-          }
-        })
+          }})
+          handleReviews();
       } catch (error){
         console.log("Error favoriting book:", error)
       }
@@ -108,7 +108,11 @@ const BookDetailsPage = ({}) => {
 
     useEffect(() => {
       handleReviews();
-    }, [openModal])
+    }, [openModal, ])
+    
+    useEffect(() => {
+      
+    }, []);
 
     useEffect(() => {
       if(bookDetails || bookDetails != ''){
