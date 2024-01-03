@@ -11,16 +11,24 @@
    align-items: center;
 }
 .modal{
-    display: flex;
-    flex-direction: column;
     border: 2px solid darkgray;
     width: 45vw;
-    padding: 3rem;
     background-color: white;
+  }
+  .modal-container{
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
   }
   .text-container{
     display: flex;
     flex-direction: column;   
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+  .text{
+    margin-top: 5px;
+    resize: none;
   }
   .rating-container{
     display: flex;
@@ -30,9 +38,15 @@
     width: 50px;
   }
   .exit{
-    display: flex;
-    align-self: end;
+    float: right;
     border: none;
     color: black;
     padding: 0 5px;
+    margin-top: auto;
+  }
+  .exit:hover{
+    background-color: rgb(255, 0, 0);
+  }
+  .submit{
+    align-self: center;
   }

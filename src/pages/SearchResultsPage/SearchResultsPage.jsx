@@ -6,11 +6,9 @@ import SearchResultRow from "../../components/SearchResultRow/SearchResultRow";
 const SearchResultsPage = ({}) => {
     const [searchResults, setSearchResults] = useState([]);
     const { searchParam } = useParams();
-    console.log(searchParam);
 
     const handleSearch = async () => {
         try {
-          console.log(searchParam)
           const responce = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchParam}`)
           if (responce.status === 200){
             console.log(responce.data)

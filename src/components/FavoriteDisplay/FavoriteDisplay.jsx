@@ -11,7 +11,7 @@ const FavoriteDisplay = ({ book, deleteFavorite}) => {
             <button className="delete-favorite" onClick={() => deleteFavorite(book.id)}>X</button>
                 <Link to={`/details/${book.bookId}`}>
                     <img src={book.thumbnailUrl} alt="" />
-                    <p>{book.title}</p>
+                    <p className="title">{book.title}</p>
                 </Link>
         </div>
     );

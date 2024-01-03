@@ -46,16 +46,18 @@ const NewReviewModal = ({ modalState, setModalState, bookId }) => {
         <div className="overlay">
             <form onSubmit={handleNewReview} className="modal">
                 <button className="exit" onClick={() => setModalState(false)}>X</button>
-                <div className="rating-container">
-                    <label className="label">Rating</label>
-                    <input className="rating" type="number" value={rating || ''} onChange={(e) => setRating(e.target.value)} />
+                <div className="modal-container">
+                    <div className="rating-container">
+                        <label className="label">Rating</label>
+                        <input className="rating" type="number" value={rating || ''} onChange={(e) => setRating(e.target.value)} />
+                    </div>
+                    <br />
+                    <div className="text-container">
+                        <label className="label">Review message</label>
+                        <textarea className="text" rows={7} value={text || ''} onChange={(e) => setText(e.target.value)} />
+                    </div>
+                    <button className="submit" type="submit">Sumbit</button>
                 </div>
-                <br />
-                <div className="text-container">
-                    <label className="label">Review message</label>
-                    <textarea className="text" value={text || ''} onChange={(e) => setText(e.target.value)} />
-                </div>
-                <button type="submit">Sumbit</button>
             </form>
         </div>
     );

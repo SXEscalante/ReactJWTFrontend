@@ -20,3 +20,6 @@
 .delete-favorite:hover{
     background-color: darkred;
 }
+.title{
+    text-decoration: none;
+}

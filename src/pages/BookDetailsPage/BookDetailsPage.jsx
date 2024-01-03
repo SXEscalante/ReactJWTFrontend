@@ -17,7 +17,7 @@ const BookDetailsPage = ({}) => {
     const [user, token] = useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [reviews, setReviews] = useState([]);
-
+    console.log("book",bookDetails)
 
     const handleSearch = async () => {
       try {
@@ -35,7 +35,11 @@ const BookDetailsPage = ({}) => {
 
     const handleReviews = async () => {
         try {
-          const responce = await axios.get(`https://localhost:5001/api/bookDetails/${bookId}`)
+          const responce = await axios.get(`https://localhost:5001/api/bookDetails/${bookId}`, {
+            headers: {
+              Authorization: "Bearer " + token
+            }})
+  
           if(responce.status === 200){
             setBookDetails(responce.data)
           }
@@ -45,17 +49,19 @@ const BookDetailsPage = ({}) => {
     }
 
     const handleDeleteReview = async (reviewId) => {
-      try {
+      if (reviewId){
+        try {
         const responce = await axios.delete(`https://localhost:5001/api/reviews/${reviewId}`, {
           headers: {
             Authorization: "Bearer " + token
+          }})
+
+          if (responce.status === 204){
+            handleReviews();
           }
-        })
-        if (responce.status === 204){
-          handleReviews();
+        } catch (error) {
+          console.log("Error deleting review:", error)
         }
-      } catch (error) {
-        console.log("Error deleting review:", error)
       }
     }
 
@@ -67,7 +73,7 @@ const BookDetailsPage = ({}) => {
       }
 
       try{
-        await axios.post(`https://localhost:5001/api/favorites`, favData, {
+        await axios.post(`https://localhost:5001/api/favorites/${bookId}`, favData, {
           headers: {
             Authorization: "Bearer " + token
           }
@@ -110,6 +116,8 @@ const BookDetailsPage = ({}) => {
       }
     }, [bookDetails]);
 
+    const favorited = bookDetails.favorite ? "favorite" : "not-favorited"
+
 
     if(loading) {
         return <div></div>
@@ -123,7 +131,7 @@ const BookDetailsPage = ({}) => {
                 <div className="info-header">
                     <h2>{book.volumeInfo.title}</h2>
                     <p>Author: {book.volumeInfo.authors}</p>
-                    <button onClick={detectUser} className={`favorite`}></button>
+                    <button onClick={detectUser} className={`favorite-button ${favorited}`}></button>
                 </div>
                 {notLoggedIn && <Navigate to="/login" />}
                 <hr />
