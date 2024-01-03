@@ -4,6 +4,7 @@
 .review-header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .review-header button{
     border: none;
@@ -17,7 +18,18 @@
   }
   .delete:hover{
     background-color: darkred;
-}
+  }
+  .edit{
+    background-image: url(/src/Images/kisspng-computer-icons-editing-pencil-icon-5ae26c0192f387.2948761415247882256019.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0px 5px;
+    width: 20px;
+    height: 20px;
+  }
+  .edit:hover{
+    background-color: darkgray;
+  }
 .body{
     padding-top: 5px;
     font-size: 17px;

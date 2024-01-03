@@ -42,6 +42,7 @@ li {
   }
   .search-bar-wrapper{
     position: relative;
+    align-self: center;
   }
   .search-bar-wrapper button{
     background-image: url(/src/Images/1200px-Google_Magnifying_Glass.svg.png);

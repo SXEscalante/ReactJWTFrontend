@@ -1,6 +1,6 @@
 import './Review.css'
 
-const Review = ({review, user, deleteReview, setAllowNewReview}) => {
+const Review = ({review, user, deleteReview, setAllowNewReview, openEditModal, setReview}) => {
     let currentUser = false
     console.log(review)
 
@@ -8,6 +8,7 @@ const Review = ({review, user, deleteReview, setAllowNewReview}) => {
         if (user.id === review.userId){
             currentUser = true;
             setAllowNewReview(false)
+            setReview(review)
     }}
 
     return ( 
@@ -17,7 +18,7 @@ const Review = ({review, user, deleteReview, setAllowNewReview}) => {
                 <div className='buttons-rating'>
                     {currentUser && <div>
                         <button className='delete' onClick={() => deleteReview(review.id)}>X</button>
-                        <button>E</button>
+                        <button className='edit' onClick={() => openEditModal(true)}></button>
                     </div>}
                     <p className='rating-value'>Rated: {review.rating}</p>
                 </div>

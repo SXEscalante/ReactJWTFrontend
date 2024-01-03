@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import './BookDetailsPage.css'
 import NewReviewModal from "../../components/NewReviewModal/NewReviewModal";
 import Review from "../../components/Review/Review";
+import EditReviewModal from "../../components/EditReviewModal/EditReviewModal";
 
 const BookDetailsPage = ({}) => {
     const { bookId } = useParams();
@@ -15,7 +16,9 @@ const BookDetailsPage = ({}) => {
     const [loading, setLoading] = useState(true);
     const [notLoggedIn, setNotLoggedIn] = useState(false);
     const [user, token] = useAuth();
-    const [openModal, setOpenModal] = useState(false);
+    const [openNewReviewModal, setOpenNewReviewModal] = useState(false);
+    const [openEditReviewModal, setOpenEditReviewModal] = useState(false);
+    const [userReview, setUserReview] = useState('');
     const [reviews, setReviews] = useState([]);
     const [allowNewReview, setAllowNewReview] = useState(true);
 
@@ -91,9 +94,9 @@ const BookDetailsPage = ({}) => {
       }
     }
 
-    const canOpenModal = () => {
+    const canOpenNewReviewModal = () => {
       if(user){
-        setOpenModal(true)
+        setOpenNewReviewModal(true)
       }
       else {
         setNotLoggedIn(true);
@@ -107,11 +110,11 @@ const BookDetailsPage = ({}) => {
 
     useEffect(() => {
       handleReviews();
-    }, [openModal])
+    }, [openNewReviewModal, openEditReviewModal])
 
     useEffect(() => {
       if(bookDetails || bookDetails != ''){
-        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user} deleteReview={handleDeleteReview} setAllowNewReview={setAllowNewReview}/>))
+        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user} openEditModal={setOpenEditReviewModal} deleteReview={handleDeleteReview} setAllowNewReview={setAllowNewReview} setReview={setUserReview}/>))
       }
     }, [bookDetails]);
 
@@ -144,9 +147,10 @@ const BookDetailsPage = ({}) => {
             <div>
               {reviews}
             </div>
-            {allowNewReview && <button onClick={canOpenModal}>Write your own review</button>}
+            {allowNewReview && <button onClick={canOpenNewReviewModal}>Write your own review</button>}
         </div>
-        <NewReviewModal modalState={openModal} setModalState={setOpenModal} bookId={bookId}  />
+        <EditReviewModal modalState={openEditReviewModal} setModalState={setOpenEditReviewModal} review={userReview}/>
+        <NewReviewModal modalState={openNewReviewModal} setModalState={setOpenNewReviewModal} bookId={bookId}  />
       </div>
     );
 }
