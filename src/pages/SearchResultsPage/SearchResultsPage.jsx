@@ -11,7 +11,7 @@ const SearchResultsPage = ({}) => {
         try {
           const responce = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchParam}`)
           if (responce.status === 200){
-            console.log(responce.data)
+            console.log("search", responce.data)
             setSearchResults(responce.data.items.map((item, i) => <SearchResultRow key={i} item={item}/>));
           }
         } catch (error) {
@@ -21,7 +21,7 @@ const SearchResultsPage = ({}) => {
 
     useEffect(() => {
       handleSearch();
-    }, [searchParam])
+    }, [])
 
     return ( 
         <div>

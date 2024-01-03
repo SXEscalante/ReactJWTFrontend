@@ -1,0 +1,6 @@
+.recommended-book{
+    display: flex;
+    flex-direction: column;
+    width: 27vw;
+    height: 100px !important;
+}

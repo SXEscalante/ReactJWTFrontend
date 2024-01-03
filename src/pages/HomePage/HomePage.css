@@ -4,4 +4,12 @@
     background-repeat: no-repeat;
     height: 39vh;
     width: 100%;
+    display: flex;
+    color: white;
+    justify-content: center;
+    font-size: 100px;
+}
+.featured-book{
+    display: flex;
+    justify-content: space-evenly;
 }

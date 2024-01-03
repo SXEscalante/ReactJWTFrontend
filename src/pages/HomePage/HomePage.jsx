@@ -4,63 +4,69 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 
 import './HomePage.css'
+import FeaturedBook from "../../components/FeaturedBook/FeaturedBook";
 
 const HomePage = () => {
   const [user, token] = useAuth();
-  const [recommendations, setRecommendations] = useState([]);
-
-  const handleRecommendedBooks = async (randomBook, randomGenre) => {
+  const [recommendedFictionBook, setRecommendedFictionBook] = useState({});
+  const [recommendedActionBook, setRecommendedActionBook] = useState({});
+  const [recommendedRomanceBook, setRecommendedRomanceBook] = useState({});
+  
+  const handleRecommendedFictionBook = async (randomBook) => {
     try {
-      const responce = axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${randomGenre}`)
-      if (responce.status === 200){
-        console.log(responce.data)
-        addToRecommended(responce.data.items[randomBook]);
+      const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:Fiction`)
+      if (response.status === 200){
+        console.log(response.data.items[randomBook])
+        setRecommendedFictionBook(response.data.items[randomBook]);
       }
     } catch (error) {
       console.log("Error getting recommendations:", error)
     }
   }
 
-  useEffect(() => {
-    randomizeRecommended()
-  }, []);
-
-  const randomizeRecommended = async () => {
-    for (let i = 0; i < 3; i++) {
-      var randomNum = Math.floor(Math.random() * 5)
-      var randomBook = Math.floor(Math.random() * 10)
-      var randomGenre;
-      switch(randomNum) {
-        case 0:
-          randomGenre = "History"
-          break;
-        case 1:
-          randomGenre = "Adventure"
-          break;
-        case 2:
-          randomGenre = "Fiction"
-          break;
-        case 3:
-          randomGenre = "Action"
-          break;
-        case 4:
-          randomGenre = "Romance"
-          break;
+  const handleRecommendedActionBook = async (randomBook) => {
+    try {
+      const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:Action`)
+      if (response.status === 200){
+        console.log(response.data.items[randomBook])
+        setRecommendedActionBook(response.data.items[randomBook]);
       }
-
-      await handleRecommendedBooks(randomBook, randomGenre)
-   }
+    } catch (error) {
+      console.log("Error getting recommendations:", error)
+    }
   }
 
-  const addToRecommended = (newRecommendation) => {
-    const updatedRecommended = [...recommendations, newRecommendation]
-    setRecommendations(updatedRecommended)
-
+  const handleRecommendedRomanceBook = async (randomBook) => {
+    try {
+      const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:Romance`)
+      if (response.status === 200){
+        console.log(response.data.items[randomBook])
+        setRecommendedRomanceBook(response.data.items[randomBook]);
+      }
+    } catch (error) {
+      console.log("Error getting recommendations:", error)
+    }
   }
+
+    useEffect(() => {
+      var randomActionBook = Math.floor(Math.random() * 10)
+      var randomFicitonBook = Math.floor(Math.random() * 10)
+      var randomRomanceBook = Math.floor(Math.random() * 10)
+
+      handleRecommendedActionBook(randomActionBook)
+      handleRecommendedFictionBook(randomFicitonBook)
+      handleRecommendedRomanceBook(randomRomanceBook)
+    }, []);
+    
 
   return (
-    <div className="hero">
-      {}
+    <div>
+      <div className="hero">Where knowledge rules</div>
+      <div className="featured-book">
+        <FeaturedBook book={recommendedActionBook} genre={"Action"}/>
+        <FeaturedBook book={recommendedFictionBook} genre={"Fiction"}/>
+        <FeaturedBook book={recommendedRomanceBook} genre={"Romance"}/>
+      </div>
     </div>
   );
 };

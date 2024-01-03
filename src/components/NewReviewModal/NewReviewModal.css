@@ -23,7 +23,7 @@
   .text-container{
     display: flex;
     flex-direction: column;   
-    padding: 0;
+    padding: 0 !important;
     margin-bottom: 2rem;
   }
   .text{
