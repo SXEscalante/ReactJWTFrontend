@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import blankCover from "../../Images/blank-book-cover_134452-8.png"
+
+
 import './SearchResultRow.css'
 
 const SearchResultRow = ({item}) => {
-    let imgSrc = item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail ? item.volumeInfo.imageLinks.thumbnail : "./src/Images/blank-book-cover_134452-8.png";
+    let imgSrc = item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail ? item.volumeInfo.imageLinks.thumbnail : blankCover;
     const [img, setImg] = useState(imgSrc);
 
     const handleImageError = (e) => {

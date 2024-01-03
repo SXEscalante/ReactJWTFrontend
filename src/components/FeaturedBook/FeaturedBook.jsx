@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import blankCover from "../../Images/blank-book-cover_134452-8.png"
 
 import "./FeaturedBook.css"
 
 const FeaturedBook = ({book, genre}) => {
-    let imgSrc = "./src/Images/blank-book-cover_134452-8.png"
+    let imgSrc = blankCover
     const [img, setImg] = useState(imgSrc)
     
     const handleImageError = (e) => {
