@@ -47,7 +47,7 @@ const FavoritesPage = ({}) => {
     return ( 
         <div>
             <h1>{user.userName}'s Favorites</h1>
-            <div className="favorites-container">
+            <div className="favorites-page">
                 {favoriteBooks}
             </div>
         </div>

@@ -1,12 +1,13 @@
 import './Review.css'
 
-const Review = ({review, user, deleteReview}) => {
+const Review = ({review, user, deleteReview, setAllowNewReview}) => {
     let currentUser = false
     console.log(review)
 
     if (user){
         if (user.id === review.userId){
             currentUser = true;
+            setAllowNewReview(false)
     }}
 
     return ( 

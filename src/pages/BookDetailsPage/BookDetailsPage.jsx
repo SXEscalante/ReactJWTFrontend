@@ -17,8 +17,7 @@ const BookDetailsPage = ({}) => {
     const [user, token] = useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [reviews, setReviews] = useState([]);
-    const [isFavorited, setIsFavorited] = useState('');
-    console.log("book",bookDetails)
+    const [allowNewReview, setAllowNewReview] = useState(true);
 
     const handleSearch = async () => {
       try {
@@ -108,15 +107,11 @@ const BookDetailsPage = ({}) => {
 
     useEffect(() => {
       handleReviews();
-    }, [openModal, ])
-    
-    useEffect(() => {
-      
-    }, []);
+    }, [openModal])
 
     useEffect(() => {
       if(bookDetails || bookDetails != ''){
-        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user} deleteReview={handleDeleteReview}/>))
+        setReviews(bookDetails.reviews.map((review, i) => <Review key={i} review={review} user={user} deleteReview={handleDeleteReview} setAllowNewReview={setAllowNewReview}/>))
       }
     }, [bookDetails]);
 
@@ -149,7 +144,7 @@ const BookDetailsPage = ({}) => {
             <div>
               {reviews}
             </div>
-            <button onClick={canOpenModal}>Write your own review</button>
+            {allowNewReview && <button onClick={canOpenModal}>Write your own review</button>}
         </div>
         <NewReviewModal modalState={openModal} setModalState={setOpenModal} bookId={bookId}  />
       </div>
