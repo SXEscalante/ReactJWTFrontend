@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "./FeaturedBook.css"
 
@@ -21,8 +22,10 @@ const FeaturedBook = ({book, genre}) => {
 
     return (
         <div className="recommended-book">
-            <p>{book.volumeInfo.title}</p>
-            <img onError={handleImageError} src={img} alt={`The cover art for ${book.volumeInfo.title}`} />
+            <Link className="link" to={`/details/${book.id}`}>
+                <p>{book.volumeInfo.title}</p>
+                <img onError={handleImageError} src={img} alt={`The cover art for ${book.volumeInfo.title}`} />
+            </Link>
             <p>{genre}</p>
         </div>
     );
